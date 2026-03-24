@@ -1,0 +1,56 @@
+{
+  "info": {
+    "name": "MLS API Collection",
+    "description": "Postman collection for MLS (My Learning System) Spring Boot Application",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "1.0.0"
+  },
+  "item": [
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"johndoe\",\n  \"email\": \"john.doe@example.com\",\n  \"password\": \"password123\",\n  \"phoneNumber\": \"+628123456789\",\n  \"fullName\": \"John Doe\",\n  \"avatarUrl\": \"https://example.com/avatar.jpg\",\n  \"address\": \"Jl. Sudirman No. 1\",\n  \"city\": \"Jakarta\",\n  \"bio\": \"Software Developer\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/users/register",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "users", "register"]
+            },
+            "description": "Register a new user account\n\n**Request Body:**\n- `username` (required, 3-50 characters): Unique username\n- `email` (required, valid email): User email address\n- `password` (required, min 6 characters): User password\n- `phoneNumber` (optional): Phone number\n- `fullName` (optional): Full name\n- `avatarUrl` (optional): Profile avatar URL\n- `address` (optional): Residential address\n- `city` (optional): City name\n- `bio` (optional): User biography\n\n**Response (201 Created):**\n```json\n{\n  \"success\": true,\n  \"message\": \"User berhasil didaftarkan\",\n  \"data\": {\n    \"id\": 1,\n    \"username\": \"johndoe\",\n    \"email\": \"john.doe@example.com\",\n    \"phoneNumber\": \"+628123456789\",\n    \"role\": \"USER\",\n    \"isActive\": true,\n    \"createdAt\": \"2024-01-15T10:30:00\",\n    \"updatedAt\": null,\n    \"account\": {\n      \"id\": 1,\n      \"fullName\": \"John Doe\",\n      \"avatarUrl\": \"https://example.com/avatar.jpg\",\n      \"address\": \"Jl. Sudirman No. 1\",\n      \"city\": \"Jakarta\",\n      \"postalCode\": null,\n      \"bio\": \"Software Developer\",\n      \"createdAt\": \"2024-01-15T10:30:00\",\n      \"updatedAt\": null\n    }\n  }\n}\n```"
+          },
+          "response": []
+        }
+      ],
+      "description": "User management endpoints"
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080",
+      "type": "string",
+      "description": "Base URL for the API"
+    }
+  ]
+}

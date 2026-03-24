@@ -1,0 +1,45 @@
+package com.masum.mls.module.account.entity
+
+import com.masum.mls.module.user.entity.User
+import jakarta.persistence.*
+import org.hibernate.annotations.CreationTimestamp
+import org.hibernate.annotations.UpdateTimestamp
+import java.time.LocalDateTime
+
+@Entity
+@Table(name = "m_accounts", schema = "mls")
+data class Account(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null,
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    val user: User,
+
+    @Column(length = 100)
+    val fullName: String? = null,
+
+    @Column(length = 255)
+    val avatarUrl: String? = null,
+
+    @Column(length = 500)
+    val address: String? = null,
+
+    @Column(length = 50)
+    val city: String? = null,
+
+    @Column(length = 20)
+    val postalCode: String? = null,
+
+    @Column(length = 255)
+    val bio: String? = null,
+
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
+    val createdAt: LocalDateTime = LocalDateTime.now(),
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    val updatedAt: LocalDateTime? = null
+)
