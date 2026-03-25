@@ -1,6 +1,6 @@
 package com.masum.mls.module.user.entity
 
-import com.masum.mls.module.account.entity.Account
+import com.masum.mls.module.account.entity.Profile
 import com.masum.mls.module.user.enums.Role
 import jakarta.persistence.*
 import org.hibernate.annotations.CreationTimestamp
@@ -34,7 +34,7 @@ data class User(
     val isActive: Boolean = true,
 
     @OneToOne(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
-    val account: Account? = null,
+    val profile: Profile? = null,
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)

@@ -1,4 +1,4 @@
-package com.masum.mls.api.user.dto
+package com.masum.mls.api.module.user.dto
 
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
@@ -24,6 +24,7 @@ data class RegisterUserRequest(
     val fullName: String? = null,
     val avatarUrl: String? = null,
     val address: String? = null,
+    val postalCode: String? = null,
     val city: String? = null,
     val bio: String? = null
 )

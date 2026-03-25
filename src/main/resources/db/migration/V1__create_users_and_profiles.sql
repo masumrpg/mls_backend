@@ -1,4 +1,4 @@
--- V1__create_users_and_accounts.sql
+-- V1__create_users_and_profiles.sql
 
 -- Tabel Users
 CREATE TABLE mls.m_users
@@ -14,8 +14,8 @@ CREATE TABLE mls.m_users
     updated_at   TIMESTAMP
 );
 
--- Tabel Accounts
-CREATE TABLE mls.m_accounts
+-- Tabel Profile
+CREATE TABLE mls.m_profiles
 (
     id          BIGSERIAL PRIMARY KEY,
     user_id     BIGINT    NOT NULL UNIQUE,
@@ -27,7 +27,7 @@ CREATE TABLE mls.m_accounts
     bio         VARCHAR(255),
     created_at  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at  TIMESTAMP,
-    CONSTRAINT fk_accounts_user FOREIGN KEY (user_id) REFERENCES mls.m_users (id) ON DELETE CASCADE
+    CONSTRAINT fk_profiles_user FOREIGN KEY (user_id) REFERENCES mls.m_users (id) ON DELETE CASCADE
 );
 
 -- Index untuk performa pencarian

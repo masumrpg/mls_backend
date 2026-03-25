@@ -1,10 +1,12 @@
-package com.masum.mls.api.user.service
+package com.masum.mls.api.module.user.service
 
-import com.masum.mls.api.user.dto.AccountResponse
-import com.masum.mls.api.user.dto.RegisterUserRequest
-import com.masum.mls.api.user.dto.UserResponse
-import com.masum.mls.module.account.entity.Account
-import com.masum.mls.module.account.service.AccountService
+import com.masum.mls.api.exception.AppException
+import com.masum.mls.api.exception.ErrorCode
+import com.masum.mls.api.module.user.dto.ProfileResponse
+import com.masum.mls.api.module.user.dto.RegisterUserRequest
+import com.masum.mls.api.module.user.dto.UserResponse
+import com.masum.mls.module.account.entity.Profile
+import com.masum.mls.module.account.service.ProfileService
 import com.masum.mls.module.user.entity.User
 import com.masum.mls.module.user.enums.Role
 import com.masum.mls.module.user.service.UserService
@@ -14,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class UserServiceApi(
     private val userService: UserService,
-    private val accountService: AccountService
+    private val profileService: ProfileService
 ) {
     @Transactional(
         timeout = 30,
@@ -23,31 +25,33 @@ class UserServiceApi(
     fun registerUser(request: RegisterUserRequest): UserResponse {
         // Cek duplikasi
         if (userService.existsByUsername(request.username)) {
-            throw IllegalArgumentException("Username sudah digunakan")
+            throw AppException(ErrorCode.CONFLICT, "Username sudah digunakan")
         }
         if (userService.existsByEmail(request.email)) {
-            throw IllegalArgumentException("Email sudah digunakan")
+            throw AppException(ErrorCode.CONFLICT, "Email sudah digunakan")
         }
 
         val user = User(
             username = request.username,
             email = request.email,
-            password = request.password, // Hash password
+            password = request.password,
+//            password = passwordEncoder.encode(request.password), // Hash password
             phoneNumber = request.phoneNumber,
             role = Role.USER,
             isActive = true
         )
-        val userCreated = userService.createUser(user)
+        val userCreated = userService.create(user)
 
-        val account = Account(
+        val profile = Profile(
             fullName = request.fullName,
             avatarUrl = request.avatarUrl,
             address = request.address,
             city = request.city,
+            postalCode = request.postalCode,
             bio = request.bio,
             user = userCreated
         )
-        val createdAccount = accountService.createAccount(account)
+        val createdAccount = profileService.create(profile)
 
         return mapToResponse(createdAccount.user)
     }
@@ -63,8 +67,8 @@ class UserServiceApi(
             isActive = user.isActive,
             createdAt = user.createdAt,
             updatedAt = user.updatedAt,
-            account = user.account?.let { acc ->
-                AccountResponse(
+            account = user.profile?.let { acc ->
+                ProfileResponse(
                     id = acc.id!!,
                     fullName = acc.fullName,
                     avatarUrl = acc.avatarUrl,

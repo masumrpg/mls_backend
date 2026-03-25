@@ -7,8 +7,8 @@ import org.hibernate.annotations.UpdateTimestamp
 import java.time.LocalDateTime
 
 @Entity
-@Table(name = "m_accounts", schema = "mls")
-data class Account(
+@Table(name = "m_profiles", schema = "mls")
+data class Profile(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,

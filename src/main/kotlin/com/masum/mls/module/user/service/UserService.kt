@@ -9,7 +9,7 @@ class UserService(
     private val userRepository: UserRepository
 ) {
 
-    fun createUser(user: User): User {
+    fun create(user: User): User {
         return userRepository.save(user)
     }
 

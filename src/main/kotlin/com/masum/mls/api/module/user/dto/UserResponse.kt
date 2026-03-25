@@ -1,4 +1,4 @@
-package com.masum.mls.api.user.dto
+package com.masum.mls.api.module.user.dto
 
 import com.masum.mls.module.user.enums.Role
 import java.time.LocalDateTime
@@ -13,11 +13,11 @@ data class UserResponse(
     val isActive: Boolean,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime?,
-    val account: AccountResponse? = null
+    val account: ProfileResponse? = null
 )
 
 // Response Detail Account
-data class AccountResponse(
+data class ProfileResponse(
     val id: Long,
     val fullName: String?,
     val avatarUrl: String?,
