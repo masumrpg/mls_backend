@@ -2,10 +2,11 @@ package com.masum.mls.api.module.user.dto
 
 import com.masum.mls.module.user.enums.Role
 import java.time.LocalDateTime
+import java.util.UUID
 
 // Response Detail User
 data class UserResponse(
-    val id: Long,
+    val id: UUID,
     val username: String,
     val email: String,
     val phoneNumber: String?,
@@ -18,7 +19,7 @@ data class UserResponse(
 
 // Response Detail Account
 data class ProfileResponse(
-    val id: Long,
+    val id: UUID,
     val fullName: String?,
     val avatarUrl: String?,
     val address: String?,

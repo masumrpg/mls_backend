@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.masum"
-version = "0.0.1-SNAPSHOT"
+version = "0.0.1"
 
 java {
 	toolchain {
@@ -20,6 +20,7 @@ repositories {
 }
 
 dependencies {
+	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-flyway")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
@@ -27,16 +28,18 @@ dependencies {
 	implementation("org.flywaydb:flyway-database-postgresql")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("tools.jackson.module:jackson-module-kotlin")
-	// Source: https://mvnrepository.com/artifact/io.github.oshai/kotlin-logging-jvm
 	implementation("io.github.oshai:kotlin-logging-jvm:8.0.01")
-	// Source: https://mvnrepository.com/artifact/net.logstash.logback/logstash-logback-encoder
 	implementation("net.logstash.logback:logstash-logback-encoder:9.0")
+
 	runtimeOnly("org.postgresql:postgresql")
+
+	testImplementation("org.springframework.boot:spring-boot-starter-security-test")
 	testImplementation("org.springframework.boot:spring-boot-starter-data-jpa-test")
 	testImplementation("org.springframework.boot:spring-boot-starter-flyway-test")
 	testImplementation("org.springframework.boot:spring-boot-starter-validation-test")
 	testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 

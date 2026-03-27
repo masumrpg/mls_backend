@@ -20,4 +20,8 @@ class UserService(
     fun existsByEmail(email: String): Boolean {
         return userRepository.existsByEmail(email)
     }
+
+    fun getByUsernameOrEmail(username: String, email: String): User? {
+        return userRepository.findByUsernameOrEmail(username, email)
+    }
 }

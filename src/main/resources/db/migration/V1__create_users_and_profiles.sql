@@ -1,9 +1,12 @@
 -- V1__create_users_and_profiles.sql
 
+-- Enable UUID extension
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 -- Tabel Users
 CREATE TABLE mls.m_users
 (
-    id           BIGSERIAL PRIMARY KEY,
+    id           UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     username     VARCHAR(50)  NOT NULL UNIQUE,
     email        VARCHAR(100) NOT NULL UNIQUE,
     password     VARCHAR(255) NOT NULL,
@@ -17,8 +20,8 @@ CREATE TABLE mls.m_users
 -- Tabel Profile
 CREATE TABLE mls.m_profiles
 (
-    id          BIGSERIAL PRIMARY KEY,
-    user_id     BIGINT    NOT NULL UNIQUE,
+    id          UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    user_id     UUID    NOT NULL UNIQUE,
     full_name   VARCHAR(100),
     avatar_url  VARCHAR(255),
     address     VARCHAR(500),

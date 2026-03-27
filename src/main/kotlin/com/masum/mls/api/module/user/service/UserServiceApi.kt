@@ -10,14 +10,17 @@ import com.masum.mls.module.account.service.ProfileService
 import com.masum.mls.module.user.entity.User
 import com.masum.mls.module.user.enums.Role
 import com.masum.mls.module.user.service.UserService
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
 class UserServiceApi(
     private val userService: UserService,
-    private val profileService: ProfileService
+    private val profileService: ProfileService,
+    private val passwordEncoder: PasswordEncoder
 ) {
+
     @Transactional(
         timeout = 30,
         rollbackFor = [Exception::class]
@@ -31,11 +34,12 @@ class UserServiceApi(
             throw AppException(ErrorCode.CONFLICT, "Email sudah digunakan")
         }
 
+        val encodedPassword = if (passwordEncoder.encode(request.password) != null) request.password else throw IllegalArgumentException("Encoded password is null!")
+
         val user = User(
             username = request.username,
             email = request.email,
-            password = request.password,
-//            password = passwordEncoder.encode(request.password), // Hash password
+            password = encodedPassword,
             phoneNumber = request.phoneNumber,
             role = Role.USER,
             isActive = true

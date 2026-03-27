@@ -5,14 +5,17 @@ import com.masum.mls.module.user.enums.Role
 import jakarta.persistence.*
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
+import org.hibernate.annotations.UuidGenerator
 import java.time.LocalDateTime
+import java.util.UUID
 
 @Entity
 @Table(name = "m_users", schema = "mls")
 data class User(
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
+    @UuidGenerator(style = UuidGenerator.Style.RANDOM)
+    @Column(name = "id", updatable = false, nullable = false)
+    val id: UUID? = null,
 
     @Column(nullable = false, unique = true, length = 50)
     val username: String,
